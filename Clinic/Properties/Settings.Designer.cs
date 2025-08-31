@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Clinic.Properties
+namespace ClinicSystem.Properties
 {
 
 
