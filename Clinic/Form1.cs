@@ -7,14 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicSystem.Models;
 
-namespace Clinic
+
+namespace ClinicSystem
 {
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void SignIn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SignUp_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
