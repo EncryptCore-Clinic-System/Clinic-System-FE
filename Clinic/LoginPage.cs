@@ -134,5 +134,10 @@ namespace Clinic
         {
 
         }
+
+        private void UserName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -51,8 +51,9 @@ namespace Clinic
             this.panel1.Controls.Add(this.Signin);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1924, 1011);
+            this.panel1.Size = new System.Drawing.Size(1283, 692);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -61,9 +62,10 @@ namespace Clinic
             this.SignUp.AutoSize = true;
             this.SignUp.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUp.ForeColor = System.Drawing.Color.DarkCyan;
-            this.SignUp.Location = new System.Drawing.Point(1416, 916);
+            this.SignUp.Location = new System.Drawing.Point(944, 627);
+            this.SignUp.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SignUp.Name = "SignUp";
-            this.SignUp.Size = new System.Drawing.Size(85, 28);
+            this.SignUp.Size = new System.Drawing.Size(56, 17);
             this.SignUp.TabIndex = 8;
             this.SignUp.Text = "Sign Up";
             this.SignUp.Click += new System.EventHandler(this.SignUp_Click);
@@ -74,9 +76,10 @@ namespace Clinic
             // 
             this.DontHave.AutoSize = true;
             this.DontHave.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DontHave.Location = new System.Drawing.Point(1154, 916);
+            this.DontHave.Location = new System.Drawing.Point(769, 627);
+            this.DontHave.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DontHave.Name = "DontHave";
-            this.DontHave.Size = new System.Drawing.Size(273, 96);
+            this.DontHave.Size = new System.Drawing.Size(175, 63);
             this.DontHave.TabIndex = 7;
             this.DontHave.Text = "Don\'t have an account? \r\n\r\n\r\n";
             this.DontHave.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -93,13 +96,13 @@ namespace Clinic
             this.Password.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.Password.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Password.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Password.Location = new System.Drawing.Point(1098, 702);
-            this.Password.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.Password.Location = new System.Drawing.Point(732, 480);
+            this.Password.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Password.Name = "Password";
             this.Password.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.Password.PlaceholderText = "   Password";
             this.Password.SelectedText = "";
-            this.Password.Size = new System.Drawing.Size(442, 70);
+            this.Password.Size = new System.Drawing.Size(295, 48);
             this.Password.TabIndex = 6;
             this.Password.TextChanged += new System.EventHandler(this.guna2TextBox2_TextChanged);
             // 
@@ -115,14 +118,15 @@ namespace Clinic
             this.UserName.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.UserName.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.UserName.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.UserName.Location = new System.Drawing.Point(1098, 583);
-            this.UserName.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.UserName.Location = new System.Drawing.Point(732, 399);
+            this.UserName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.UserName.Name = "UserName";
             this.UserName.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.UserName.PlaceholderText = "   Enter User Name";
             this.UserName.SelectedText = "";
-            this.UserName.Size = new System.Drawing.Size(442, 70);
+            this.UserName.Size = new System.Drawing.Size(295, 48);
             this.UserName.TabIndex = 5;
+            this.UserName.TextChanged += new System.EventHandler(this.UserName_TextChanged);
             // 
             // Login
             // 
@@ -134,10 +138,11 @@ namespace Clinic
             this.Login.FillColor = System.Drawing.Color.Teal;
             this.Login.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Login.ForeColor = System.Drawing.Color.White;
-            this.Login.Location = new System.Drawing.Point(1098, 818);
+            this.Login.Location = new System.Drawing.Point(732, 560);
+            this.Login.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Login.Name = "Login";
             this.Login.PressedDepth = 50;
-            this.Login.Size = new System.Drawing.Size(442, 75);
+            this.Login.Size = new System.Drawing.Size(295, 51);
             this.Login.TabIndex = 4;
             this.Login.Text = "Log in";
             this.Login.Click += new System.EventHandler(this.guna2Button1_Click);
@@ -147,19 +152,21 @@ namespace Clinic
             this.Signin.AutoSize = true;
             this.Signin.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Signin.ForeColor = System.Drawing.Color.Teal;
-            this.Signin.Location = new System.Drawing.Point(1186, 384);
+            this.Signin.Location = new System.Drawing.Point(791, 263);
+            this.Signin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Signin.Name = "Signin";
-            this.Signin.Size = new System.Drawing.Size(276, 96);
+            this.Signin.Size = new System.Drawing.Size(185, 65);
             this.Signin.TabIndex = 1;
             this.Signin.Text = "Sign In";
             this.Signin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 1011);
+            this.ClientSize = new System.Drawing.Size(1283, 692);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "LoginPage";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Log In";

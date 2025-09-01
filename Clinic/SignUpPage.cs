@@ -32,6 +32,12 @@ namespace Clinic
 
             guna2HtmlLabel3.Cursor = Cursors.Hand;
             guna2ComboBox1.Items.AddRange(new object[] { "Doctor", "Receptionist"});
+
+            this.WindowState = FormWindowState.Maximized;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            this.Resize += SignUpPage_Resize;
+            this.Load += SignUpPage_Load;
         }
 
         private void guna2HtmlLabel2_Click(object sender, EventArgs e)
@@ -289,5 +295,46 @@ namespace Clinic
         {
 
         }
+
+        private void SignUpPage_Load(object sender, EventArgs e)
+        {
+            int spacing = 6;
+
+            // Calculate total height of your stacked controls
+            int totalHeight = guna2HtmlLabel1.Height +
+                              guna2TextBox1.Height + guna2TextBox2.Height +
+                              guna2TextBox3.Height + guna2TextBox4.Height +
+                              guna2ComboBox1.Height + guna2Button1.Height +
+                              (spacing * 6);
+
+            int startY = (this.ClientSize.Height / 2) - (totalHeight / 2);
+
+            // Center each control horizontally and stack them
+            CenterControl(guna2HtmlLabel1, ref startY, spacing); 
+            CenterControl(guna2TextBox1, ref startY, spacing);
+            CenterControl(guna2HtmlLabel4, ref startY, spacing);
+            CenterControl(guna2TextBox2, ref startY, spacing);
+            CenterControl(guna2HtmlLabel5, ref startY, spacing);
+            CenterControl(guna2TextBox3, ref startY, spacing);
+            CenterControl(guna2HtmlLabel6, ref startY, spacing);
+            CenterControl(guna2TextBox4, ref startY, spacing);
+            CenterControl(guna2HtmlLabel7, ref startY, spacing);
+            CenterControl(guna2ComboBox1, ref startY, spacing);
+            CenterControl(guna2HtmlLabel8, ref startY, 5);
+            CenterControl(guna2Button1, ref startY, 5);
+        }
+
+        private void CenterControl(Control ctrl, ref int startY, int spacing)
+        {
+            ctrl.Left = (this.ClientSize.Width - ctrl.Width) / 2;
+            ctrl.Top = startY;
+            startY += ctrl.Height + spacing;
+        }
+
+        private void SignUpPage_Resize(object sender, EventArgs e)
+        {
+            SignUpPage_Load(sender, e); // re-center everything
+        }
+
     }
 }
