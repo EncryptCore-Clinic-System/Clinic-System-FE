@@ -29,6 +29,7 @@ namespace Clinic
             guna2TextBox4.TextChanged += guna2TextBox4_TextChanged;
 
             guna2HtmlLabel3.Cursor = Cursors.Hand;
+            guna2ComboBox1.Items.AddRange(new object[] { "Doctor", "Receptionist"});
         }
 
         private void guna2HtmlLabel2_Click(object sender, EventArgs e)
@@ -142,11 +143,39 @@ namespace Clinic
                         HideError(textBox, errorLabel);
                         return true;
                     }
-
                 default:
                     return true;
             }
         }
+
+        private bool ValidateField(Guna2ComboBox guna2ComboBox, Guna2HtmlLabel errorLabel, string fieldName) {
+            if (guna2ComboBox.SelectedItem == null)
+            {
+                ShowError(guna2ComboBox, errorLabel, "Please select a role.");
+                return false;
+            }
+            else
+            {
+                HideError(guna2ComboBox, errorLabel);
+                return true;
+            }
+        }
+
+
+        private void ShowError(Guna2ComboBox guna2ComboBox, Guna2HtmlLabel errorLabel, string message)
+        {
+            errorLabel.Text = message;
+            errorLabel.ForeColor = Color.Red;
+            errorLabel.Visible = true;
+            guna2ComboBox.BorderColor = Color.Red;
+        }
+
+        private void HideError(Guna2ComboBox guna2ComboBox, Guna2HtmlLabel errorLabel)
+        {
+            errorLabel.Visible = false;
+            guna2ComboBox.BorderColor = Color.FromArgb(213, 218, 223);
+        }
+
 
 
         private void ShowError(Guna2TextBox textBox, Guna2HtmlLabel errorLabel, string message)
@@ -170,8 +199,9 @@ namespace Clinic
             bool valid2 = ValidateField(guna2TextBox2, guna2HtmlLabel5, "Email");
             bool valid3 = ValidateField(guna2TextBox3, guna2HtmlLabel6, "Password");
             bool valid4 = ValidateField(guna2TextBox4, guna2HtmlLabel7, "Confirm Password");
+            bool valid5 = ValidateField(guna2ComboBox1, guna2HtmlLabel8, "role");
 
-            return valid1 && valid2 && valid3 && valid4;
+            return valid1 && valid2 && valid3 && valid4 && valid5;
         }
 
         private void guna2Button1_Click_1(object sender, EventArgs e)
@@ -222,10 +252,19 @@ namespace Clinic
             ValidateField(guna2TextBox4, guna2HtmlLabel7, "Confirm Password");
         }
 
+        private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ValidateField(guna2ComboBox1, guna2HtmlLabel8, "role");
+        }
+
+        private void guna2ComboBox1_Leave(object sender, EventArgs e)
+        {
+            ValidateField(guna2ComboBox1, guna2HtmlLabel8, "role");
+        }
+
         private void guna2HtmlLabel4_Click(object sender, EventArgs e)
         {
 
         }
-
     }
 }
