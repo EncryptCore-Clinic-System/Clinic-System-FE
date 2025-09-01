@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Clinic.Models;
+using Clinic;
 
 
 namespace Clinic
@@ -21,6 +22,14 @@ namespace Clinic
         public LoginPage()
         {
             InitializeComponent();
+
+
+            UserName.Leave += UserName_Leave;
+            Password.Leave += Password_Leave;
+
+
+            UserName.TextChanged += UserName_Leave;
+            Password.TextChanged += Password_Leave;
         }
 
 
@@ -62,13 +71,20 @@ namespace Clinic
 
             int startY = (this.ClientSize.Height / 2) - (totalHeight / 2);
 
-            // الترتيب تحت بعض
             CenterControl(Signin, ref startY, spacing);
             CenterControl(UserName, ref startY, spacing);
+
+            // Set error label width to match textbox width before centering
+            guna2HtmlLabel1.Width = UserName.Width;
+            CenterControl(guna2HtmlLabel1, ref startY, 3);
+
             CenterControl(Password, ref startY, spacing);
+
+            guna2HtmlLabel2.Width = Password.Width;
+            CenterControl(guna2HtmlLabel2, ref startY, 3);
+
             CenterControl(Login, ref startY, spacing);
 
-            // SignUp + DontHave جنب بعض
             CenterControlsSideBySide(DontHave, SignUp, ref startY, spacing);
         }
 
@@ -110,6 +126,8 @@ namespace Clinic
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            if (!ValidateAllFields())
+                return;
             string username = UserName.Text;
             string password = Password.Text;
             var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
@@ -130,14 +148,99 @@ namespace Clinic
             }
         }
 
-        private void guna2TextBox2_TextChanged(object sender, EventArgs e)
+        private bool ValidateField(Guna2TextBox textBox, Guna2HtmlLabel errorLabel, string fieldName)
         {
+            string input = textBox.Text;
+
+            switch (fieldName)
+            {
+                case "Username":
+                    if (string.IsNullOrWhiteSpace(input))
+                    {
+                        ShowError(textBox, errorLabel, "Username cannot be blank.");
+                        return false;
+                    }
+                    else if (input.Length < 3)
+                    {
+                        ShowError(textBox, errorLabel, "Username must be at least 3 characters.");
+                        return false;
+                    }
+                    else
+                    {
+                        HideError(textBox, errorLabel);
+                        return true;
+                    }
+
+                case "Password":
+                    if (string.IsNullOrWhiteSpace(input))
+                    {
+                        ShowError(textBox, errorLabel, "Password cannot be blank.");
+                        return false;
+                    }
+                    else if (input.Length < 6)
+                    {
+                        ShowError(textBox, errorLabel, "Password must be at least 6 characters.");
+                        return false;
+                    }
+                    else if (!input.Any(char.IsDigit))
+                    {
+                        ShowError(textBox, errorLabel, "Password must include a number.");
+                        return false;
+                    }
+                    else
+                    {
+                        HideError(textBox, errorLabel);
+                        return true;
+                    }
+                default:
+                    return true;
+            }
+        }
+
+        private void ShowError(Guna2TextBox textBox, Guna2HtmlLabel errorLabel, string message)
+        {
+            errorLabel.Text = message;
+            errorLabel.ForeColor = Color.Red;
+            errorLabel.Visible = true;
+            textBox.BorderColor = Color.Red;
+        }
+
+        private void HideError(Guna2TextBox textBox, Guna2HtmlLabel errorLabel)
+        {
+            errorLabel.Visible = false;
+            textBox.BorderColor = Color.FromArgb(213, 218, 223);
+        }
+
+        private bool ValidateAllFields()
+        {
+            bool valid1 = ValidateField(UserName, guna2HtmlLabel1, "Username");
+            bool valid2 = ValidateField(Password, guna2HtmlLabel2, "Password");
+            return valid1 && valid2;
+        }
+
+        private void Password_TextChanged(object sender, EventArgs e)
+        {
+            ValidateField(Password, guna2HtmlLabel2, "Password");
 
         }
 
         private void UserName_TextChanged(object sender, EventArgs e)
         {
+            ValidateField(UserName, guna2HtmlLabel1, "Username");
+        }
 
+        private void Password_Leave(object sender, EventArgs e)
+        {
+            ValidateField(Password, guna2HtmlLabel2, "Password");
+        }
+
+        private void UserName_Leave(object sender, EventArgs e)
+        {
+            ValidateField(UserName, guna2HtmlLabel1, "Username");
+        }
+
+        private void guna2TextBox2_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -31,7 +31,11 @@ namespace Clinic
             guna2TextBox4.TextChanged += guna2TextBox4_TextChanged;
 
             guna2HtmlLabel3.Cursor = Cursors.Hand;
+
+
+            guna2ComboBox1.Items.Add("Select your role");
             guna2ComboBox1.Items.AddRange(new object[] { "Doctor", "Receptionist"});
+            guna2ComboBox1.StartIndex = 0; // show placeholder as default
 
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -158,6 +162,11 @@ namespace Clinic
 
         private bool ValidateField(Guna2ComboBox guna2ComboBox, Guna2HtmlLabel errorLabel, string fieldName) {
             if (guna2ComboBox.SelectedItem == null)
+            {
+                ShowError(guna2ComboBox, errorLabel, "Please select a role.");
+                return false;
+            }
+            else if (guna2ComboBox.SelectedItem.ToString() == "Select your role")
             {
                 ShowError(guna2ComboBox, errorLabel, "Please select a role.");
                 return false;
@@ -333,7 +342,12 @@ namespace Clinic
 
         private void SignUpPage_Resize(object sender, EventArgs e)
         {
-            SignUpPage_Load(sender, e); // re-center everything
+            SignUpPage_Load(sender, e);
+        }
+
+        private void SignUpPage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
         }
 
     }

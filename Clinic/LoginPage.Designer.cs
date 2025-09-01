@@ -31,6 +31,8 @@ namespace Clinic
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.SignUp = new System.Windows.Forms.Label();
             this.DontHave = new System.Windows.Forms.Label();
             this.Password = new Guna.UI2.WinForms.Guna2TextBox();
@@ -43,6 +45,8 @@ namespace Clinic
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightBlue;
+            this.panel1.Controls.Add(this.guna2HtmlLabel2);
+            this.panel1.Controls.Add(this.guna2HtmlLabel1);
             this.panel1.Controls.Add(this.SignUp);
             this.panel1.Controls.Add(this.DontHave);
             this.panel1.Controls.Add(this.Password);
@@ -51,11 +55,33 @@ namespace Clinic
             this.panel1.Controls.Add(this.Signin);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1283, 692);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Red;
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(751, 536);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(85, 15);
+            this.guna2HtmlLabel2.TabIndex = 10;
+            this.guna2HtmlLabel2.Text = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Visible = false;
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.Red;
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(751, 454);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(85, 15);
+            this.guna2HtmlLabel1.TabIndex = 9;
+            this.guna2HtmlLabel1.Text = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Visible = false;
             // 
             // SignUp
             // 
@@ -99,6 +125,7 @@ namespace Clinic
             this.Password.Location = new System.Drawing.Point(732, 480);
             this.Password.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Password.Name = "Password";
+            this.Password.PasswordChar = '*';
             this.Password.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.Password.PlaceholderText = "   Password";
             this.Password.SelectedText = "";
@@ -139,7 +166,7 @@ namespace Clinic
             this.Login.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Login.ForeColor = System.Drawing.Color.White;
             this.Login.Location = new System.Drawing.Point(732, 560);
-            this.Login.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Login.Margin = new System.Windows.Forms.Padding(2);
             this.Login.Name = "Login";
             this.Login.PressedDepth = 50;
             this.Login.Size = new System.Drawing.Size(295, 51);
@@ -166,7 +193,7 @@ namespace Clinic
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1283, 692);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LoginPage";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Log In";
@@ -187,6 +214,8 @@ namespace Clinic
         private Guna.UI2.WinForms.Guna2TextBox UserName;
         private System.Windows.Forms.Label DontHave;
         private System.Windows.Forms.Label SignUp;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
     }
 }
 
