@@ -9,11 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Clinic;
+using Clinic.Models;
 
 namespace Clinic
 {
     public partial class SignUpPage : Form
     {
+        MyContext db = new MyContext();
         public SignUpPage()
         {
             InitializeComponent();
@@ -209,6 +211,27 @@ namespace Clinic
             if (ValidateAllFields())
             {
                 MessageBox.Show("Form submitted successfully!");
+
+                string username = guna2TextBox1.Text;
+                string email = guna2TextBox2.Text;
+                string password = guna2TextBox3.Text;
+                string confirmPassword = guna2TextBox4.Text;
+                string role = guna2ComboBox1.SelectedItem.ToString();
+
+                // Here, you save the user data to a database or perform other actions.
+                var user = new User
+                {
+                    Username = username,
+                    Email = email,
+                    Password = password,
+                    Role = role
+                };
+
+                using (db)
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
             }
         }
 
