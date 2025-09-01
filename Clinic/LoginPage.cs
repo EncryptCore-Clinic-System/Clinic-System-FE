@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Clinic;
+using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,19 +11,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace ClinicSystem
+namespace Clinic
 {
-    public partial class Form1 : Form
+    public partial class LoginPage : Form
     {
-        public Form1()
+        public LoginPage()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -35,7 +33,19 @@ namespace ClinicSystem
 
         private void SignUp_Click(object sender, EventArgs e)
         {
+            var signUpPage = new SignUpPage();
+            signUpPage.Show();
+            this.Hide();
+        }
 
+        private void SignUp_MouseEnter(object sender, EventArgs e)
+        {
+            SignUp.Cursor = Cursors.Hand;
+        }
+
+        private void SignUp_MouseLeave(object sender, EventArgs e)
+        {
+            SignUp.Cursor = Cursors.Default;
         }
     }
 }

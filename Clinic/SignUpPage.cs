@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Clinic;
 
 namespace Clinic
 {
@@ -26,6 +27,8 @@ namespace Clinic
             guna2TextBox2.TextChanged += guna2TextBox2_TextChanged;
             guna2TextBox3.TextChanged += guna2TextBox3_TextChanged;
             guna2TextBox4.TextChanged += guna2TextBox4_TextChanged;
+
+            guna2HtmlLabel3.Cursor = Cursors.Hand;
         }
 
         private void guna2HtmlLabel2_Click(object sender, EventArgs e)
@@ -35,7 +38,19 @@ namespace Clinic
 
         private void guna2HtmlLabel3_Click(object sender, EventArgs e)
         {
+            var LogInPage = new LoginPage();
+            LogInPage.Show();
+            this.Hide();
+        }
 
+        private void guna2HtmlLabel3_MouseEnter(object sender, EventArgs e)
+        {
+            guna2HtmlLabel3.Cursor = Cursors.Hand;
+        }
+
+        private void guna2HtmlLabel3_MouseLeave(object sender, EventArgs e)
+        {
+            guna2HtmlLabel3.Cursor = Cursors.Default;
         }
 
         private void guna2HtmlLabel1_Click(object sender, EventArgs e)
