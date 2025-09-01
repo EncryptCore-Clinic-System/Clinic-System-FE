@@ -247,6 +247,10 @@ namespace Clinic
                     db.Users.Add(user);
                     db.SaveChanges();
                 }
+                //if added successfully, navigate to login page
+                var loginPage = new LoginPage();
+                loginPage.Show();
+                this.Hide();
             }
         }
 

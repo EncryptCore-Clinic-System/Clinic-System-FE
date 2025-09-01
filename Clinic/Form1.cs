@@ -39,7 +39,16 @@ namespace Clinic
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var signUpPage = new SignUpPage();
+            signUpPage.Show();
+            this.Hide();
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var loginPage = new LoginPage();
+            loginPage.Show();
+            this.Hide();
         }
     }
 }
