@@ -15,7 +15,7 @@ namespace Clinic.Models
     public class MyContext : DbContext
     {
         public MyContext()
-            : base("Data Source=MAHMOUD\\SQLEXPRESS;Initial Catalog=ClinicSystem;Integrated Security=True;")
+            : base("ClinicDb")
         {
         }
 

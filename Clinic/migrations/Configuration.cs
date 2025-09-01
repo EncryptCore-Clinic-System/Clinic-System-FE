@@ -5,14 +5,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ClinicSystem.Models.MyContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Clinic.Models.MyContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ClinicSystem.Models.MyContext context)
+        protected override void Seed(Clinic.Models.MyContext context)
         {
             //  This method will be called after migrating to the latest version.
 
