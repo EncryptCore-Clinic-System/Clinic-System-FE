@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Clinic.Models;
-using Clinic;
 
 
 namespace Clinic
@@ -136,6 +135,13 @@ namespace Clinic
                 // Successful login
                 MessageBox.Show("Login successful!");
                 //Open the main application form
+
+                if (user.Role == "Receptionist")
+                {
+                    var receptionistDashboard = new ReceptionistDashboard();
+                    receptionistDashboard.Show();
+                    this.Hide();
+                }
 
                 //Patient patient = new Patient()
                 //patient.Show();

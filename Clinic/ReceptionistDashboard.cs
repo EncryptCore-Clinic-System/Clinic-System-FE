@@ -3,19 +3,19 @@ using System.Windows.Forms;
 
 namespace Clinic
 {
-    public partial class Form1 : Form
+    public partial class ReceptionistDashboard : Form
     {
         // counters
         int totalAppointments = 0;
         int pendingAppointments = 0;
         int withDoctor = 0;
 
-        public Form1()
+        public ReceptionistDashboard()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void ReceptionistDashboard_Load(object sender, EventArgs e)
         {
             // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
