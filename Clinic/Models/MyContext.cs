@@ -1,4 +1,4 @@
-﻿using ClinicSystem.Models;
+﻿using Clinic.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClinicSystem.Models
+namespace Clinic.Models
 {
     public class MyContext : DbContext
     {

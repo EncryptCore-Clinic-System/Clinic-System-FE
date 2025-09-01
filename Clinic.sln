@@ -1,9 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic", "Clinic\Clinic.csproj", "{4D5C9AC6-5ADC-4FE3-8A60-04B00482A485}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Clinic\Models\Appointment.cs = Clinic\Models\Appointment.cs
+		Clinic\Models\MedicalRecord.cs = Clinic\Models\MedicalRecord.cs
+		Clinic\Models\MyContext.cs = Clinic\Models\MyContext.cs
+		Clinic\Models\Patient.cs = Clinic\Models\Patient.cs
+		Clinic\Models\Report.cs = Clinic\Models\Report.cs
+		Clinic\Models\User.cs = Clinic\Models\User.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migrations", "migrations", "{27394CCA-47F6-4570-B92B-702D3C1359C8}"
+	ProjectSection(SolutionItems) = preProject
+		Clinic\migrations\202508311527088_mig1.cs = Clinic\migrations\202508311527088_mig1.cs
+		Clinic\migrations\202508311527088_mig1.Designer.cs = Clinic\migrations\202508311527088_mig1.Designer.cs
+		Clinic\migrations\202508311527088_mig1.resx = Clinic\migrations\202508311527088_mig1.resx
+		Clinic\migrations\202508311535207_SchemaMig.cs = Clinic\migrations\202508311535207_SchemaMig.cs
+		Clinic\migrations\202508311535207_SchemaMig.Designer.cs = Clinic\migrations\202508311535207_SchemaMig.Designer.cs
+		Clinic\migrations\202508311535207_SchemaMig.resx = Clinic\migrations\202508311535207_SchemaMig.resx
+		Clinic\migrations\202508311934504_Meg.cs = Clinic\migrations\202508311934504_Meg.cs
+		Clinic\migrations\202508311934504_Meg.Designer.cs = Clinic\migrations\202508311934504_Meg.Designer.cs
+		Clinic\migrations\202508311934504_Meg.resx = Clinic\migrations\202508311934504_Meg.resx
+		Clinic\migrations\Configuration.cs = Clinic\migrations\Configuration.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

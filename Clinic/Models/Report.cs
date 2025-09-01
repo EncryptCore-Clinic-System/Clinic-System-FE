@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
-using ClinicSystem.Models;
+using Clinic.Models;
 
-namespace ClinicSystem.Models
+namespace Clinic.Models
 {
     public class Report
     {
