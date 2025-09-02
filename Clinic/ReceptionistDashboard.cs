@@ -23,22 +23,74 @@ namespace Clinic
             // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
 
+            //LoadPatients();
             // initialize counters
+            UpdateLabels();
+        }
+
+        /*        private void LoadPatients()
+                {
+                    var patients = context.Patients.ToList();
+
+                    // Optional: Clear existing rows
+                    dataGridView1.Rows.Clear();
+
+                    foreach (var patient in patients)
+                    {
+                        dataGridView1.Rows.Add(new object[]
+                        {
+                            patient.PatientID,
+                            patient.Name,
+                            patient.Age,
+                            patient.VisitType,
+                            patient.MedicalHistory,
+                            patient.Phone,
+                            "Waiting"
+                        });
+                    }
+
+                    totalAppointments = patients.Count;
+                    pendingAppointments = patients.Count;
+                    withDoctor = 0; 
+                }*/
+
+        private void AddPatientToGrid(Patient patient)
+        {
+            dataGridView1.Rows.Add(new object[]
+            {
+        patient.PatientID,
+        patient.Name,
+        patient.Age,
+        patient.VisitType,
+        patient.MedicalHistory,
+        patient.Phone,
+        "Waiting"
+            });
+
+            totalAppointments++;
+            pendingAppointments++;
             UpdateLabels();
         }
 
         // Add button (green button)
         private void button1_Click(object sender, EventArgs e)
         {
-            AddNewAppointment();
+            var form = new PatientForm();
+            if (form.ShowDialog() == DialogResult.OK && form.SelectedPatient != null)
+            {
+                AddPatientToGrid(form.SelectedPatient);
+            }
         }
 
         // Add picture (green picture)
         private void pictureBox4_Click(object sender, EventArgs e)
         {
-            AddNewAppointment();
+            var form = new PatientForm();
+            if (form.ShowDialog() == DialogResult.OK && form.SelectedPatient != null)
+            {
+                AddPatientToGrid(form.SelectedPatient);
+            }
         }
-
         private void AddNewAppointment()
         {
             int newId = dataGridView1.Rows.Count + 1;

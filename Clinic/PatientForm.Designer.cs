@@ -47,6 +47,7 @@
             this.ErrorLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ErrorLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.PatientGender = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.ExistingPhone = new Guna.UI2.WinForms.Guna2ComboBox();
             this.SuspendLayout();
             // 
             // ExistingPatient
@@ -94,7 +95,7 @@
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.Teal;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(275, 22);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(209, 23);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(186, 32);
             this.guna2HtmlLabel1.TabIndex = 2;
@@ -260,7 +261,7 @@
             this.AddExistingPatient.FillColor = System.Drawing.Color.Teal;
             this.AddExistingPatient.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddExistingPatient.ForeColor = System.Drawing.Color.White;
-            this.AddExistingPatient.Location = new System.Drawing.Point(162, 218);
+            this.AddExistingPatient.Location = new System.Drawing.Point(162, 266);
             this.AddExistingPatient.Name = "AddExistingPatient";
             this.AddExistingPatient.Size = new System.Drawing.Size(233, 45);
             this.AddExistingPatient.TabIndex = 12;
@@ -351,12 +352,30 @@
             this.PatientGender.TabIndex = 19;
             this.PatientGender.Visible = false;
             // 
+            // ExistingPhone
+            // 
+            this.ExistingPhone.BackColor = System.Drawing.Color.Transparent;
+            this.ExistingPhone.BorderRadius = 17;
+            this.ExistingPhone.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ExistingPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ExistingPhone.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ExistingPhone.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ExistingPhone.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ExistingPhone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.ExistingPhone.ItemHeight = 30;
+            this.ExistingPhone.Location = new System.Drawing.Point(162, 227);
+            this.ExistingPhone.Name = "ExistingPhone";
+            this.ExistingPhone.Size = new System.Drawing.Size(233, 36);
+            this.ExistingPhone.TabIndex = 20;
+            this.ExistingPhone.Visible = false;
+            // 
             // PatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
-            this.ClientSize = new System.Drawing.Size(800, 516);
+            this.ClientSize = new System.Drawing.Size(697, 516);
+            this.Controls.Add(this.ExistingPhone);
             this.Controls.Add(this.PatientGender);
             this.Controls.Add(this.ErrorLabel6);
             this.Controls.Add(this.ErrorLabel5);
@@ -376,8 +395,10 @@
             this.Controls.Add(this.guna2HtmlLabel1);
             this.Controls.Add(this.NewPatient);
             this.Controls.Add(this.ExistingPatient);
+            this.MaximizeBox = false;
             this.Name = "PatientForm";
             this.Text = "PatientForm";
+            this.Load += new System.EventHandler(this.PatientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,5 +425,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel ErrorLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel ErrorLabel6;
         private Guna.UI2.WinForms.Guna2ComboBox PatientGender;
+        private Guna.UI2.WinForms.Guna2ComboBox ExistingPhone;
     }
 }

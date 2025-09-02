@@ -15,6 +15,8 @@ namespace Clinic
     public partial class PatientForm : Form
     {
         MyContext db = new MyContext();
+
+        public Patient SelectedPatient { get; private set; }
         public PatientForm()
         {
             InitializeComponent();
@@ -40,13 +42,12 @@ namespace Clinic
             PatientAddress.TextChanged += PatientAddress_TextChanged;
 
 
-
             PatientVisitType.Items.Add("Select Visit Type");
             PatientVisitType.Items.Add("Consultation");
             PatientVisitType.Items.Add("Follow-up Visit");
             PatientVisitType.StartIndex = 0;
 
-            PatientVisitType.Items.Add("Select Gender");
+            PatientGender.Items.Add("Select Gender");
             PatientGender.Items.Add("Male");
             PatientGender.Items.Add("Female");
             PatientGender.StartIndex = 0;
@@ -57,11 +58,16 @@ namespace Clinic
             ExistingVisitType.StartIndex = 0;
 
             ExistingPatients.Items.Add("Select Patient");
+            ExistingPhone.Items.Add("Select Phone Number");
+            
             foreach (var patient in db.Patients.ToList())
             {
                 ExistingPatients.Items.Add(patient.Name);
+                ExistingPhone.Items.Add(patient.Phone);
             }
             ExistingPatients.StartIndex = 0;
+            ExistingPhone.StartIndex = 0;
+
         }
 
         private void guna2RadioButton1_CheckedChanged(object sender, EventArgs e)
@@ -204,6 +210,7 @@ namespace Clinic
             ExistingPatients.Visible = false;
             ExistingVisitType.Visible = false;
             AddExistingPatient.Visible = false;
+            ExistingPhone.Visible = false;
 
             PatientName.Visible = true;
             PatientAge.Visible = true;
@@ -226,6 +233,7 @@ namespace Clinic
             ExistingPatients.Visible = true;
             ExistingVisitType.Visible = true;
             AddExistingPatient.Visible = true;
+            ExistingPhone.Visible = true;
 
             PatientName.Visible = false;
             PatientAge.Visible = false;
@@ -259,8 +267,40 @@ namespace Clinic
         {
             bool valid1 = ValidateField(ExistingPatients, ErrorLabel1, "Patient");
             bool valid2 = ValidateField(ExistingVisitType, ErrorLabel2, "Visit Type");
-            if (!valid1 || !valid2) return;
-            MessageBox.Show("Successfully Added");
+            bool valid3 = ValidateField(ExistingPhone, ErrorLabel3, "Phone");
+            if (!valid1 || !valid2 || !valid3) return;
+
+            try
+            {
+                // Get selected patient name and phone
+                string selectedName = ExistingPatients.SelectedItem.ToString();
+                string selectedPhone = ExistingPhone.SelectedItem.ToString();
+
+                // Find the patient in the database
+                var patient = db.Patients
+                    .FirstOrDefault(p => p.Name == selectedName && p.Phone == selectedPhone);
+
+                if (patient != null)
+                {
+                    // Update visit type and created date
+                    patient.VisitType = ExistingVisitType.SelectedItem.ToString();
+                    patient.CreatedAt = DateTime.Now;
+
+                    db.SaveChanges();
+
+                    SelectedPatient = patient;
+                    MessageBox.Show("Patient record updated successfully.");
+                    this.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show("Patient not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating patient: " + ex.Message);
+            }
         }
 
         private void AddPatientBTN_Click(object sender, EventArgs e)
@@ -275,7 +315,7 @@ namespace Clinic
 
             try
             {
-                db.Patients.Add(new Patient
+                var newPatient = new Patient
                 {
                     Name = PatientName.Text,
                     Age = int.Parse(PatientAge.Text),
@@ -284,9 +324,12 @@ namespace Clinic
                     Phone = PatientPhone.Text,
                     Address = PatientAddress.Text,
                     CreatedAt = DateTime.Now
-                });
+                };
+                db.Patients.Add(newPatient);
                 db.SaveChanges();
+                SelectedPatient = newPatient;
                 RefreshExistingPatients();
+                this.DialogResult = DialogResult.OK;
                 MessageBox.Show("Successfully Added");
             }
             catch (Exception ex)
@@ -373,5 +416,9 @@ namespace Clinic
             ValidateField(ExistingVisitType, ErrorLabel2, "Visit Type");
         }
 
+        private void PatientForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
