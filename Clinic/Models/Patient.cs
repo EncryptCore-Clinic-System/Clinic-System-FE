@@ -37,6 +37,8 @@ namespace Clinic.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        public string Status { get; set; } = "Waiting"; // Waiting, With Doctor, Completed
+
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<MedicalRecord> MedicalRecords { get; set; }
     }

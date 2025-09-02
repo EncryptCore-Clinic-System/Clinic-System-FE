@@ -53,20 +53,17 @@ namespace Clinic
             PatientGender.StartIndex = 0;
 
             ExistingVisitType.Items.Add("Select Visit Type");
-            ExistingVisitType.Items.Add("Esteshara");
+            ExistingVisitType.Items.Add("Consultation");
             ExistingVisitType.Items.Add("Follow-up Visit");
             ExistingVisitType.StartIndex = 0;
 
             ExistingPatients.Items.Add("Select Patient");
-            ExistingPhone.Items.Add("Select Phone Number");
             
             foreach (var patient in db.Patients.ToList())
             {
                 ExistingPatients.Items.Add(patient.Name);
-                ExistingPhone.Items.Add(patient.Phone);
             }
             ExistingPatients.StartIndex = 0;
-            ExistingPhone.StartIndex = 0;
 
         }
 
@@ -274,7 +271,7 @@ namespace Clinic
             {
                 // Get selected patient name and phone
                 string selectedName = ExistingPatients.SelectedItem.ToString();
-                string selectedPhone = ExistingPhone.SelectedItem.ToString();
+                string selectedPhone = ExistingPhone.Text.ToString();
 
                 // Find the patient in the database
                 var patient = db.Patients
@@ -285,6 +282,7 @@ namespace Clinic
                     // Update visit type and created date
                     patient.VisitType = ExistingVisitType.SelectedItem.ToString();
                     patient.CreatedAt = DateTime.Now;
+                    patient.Status = "Waiting";
 
                     db.SaveChanges();
 

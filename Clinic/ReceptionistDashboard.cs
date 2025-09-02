@@ -23,39 +23,52 @@ namespace Clinic
             // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
 
-            //LoadPatients();
+            LoadPatients();
             // initialize counters
             UpdateLabels();
         }
 
-        /*        private void LoadPatients()
+        private void LoadPatients()
+        {
+            var patients = context.Patients.ToList();
+
+            // Optional: Clear existing rows
+            dataGridView1.Rows.Clear();
+
+            foreach (var patient in patients)
+            {
+                dataGridView1.Rows.Add(new object[]
                 {
-                    var patients = context.Patients.ToList();
+                    patient.PatientID,
+                    patient.Name,
+                    patient.Age,
+                    patient.VisitType,
+                    patient.MedicalHistory,
+                    patient.Phone,
+                    patient.Status
+                });
+            }
 
-                    // Optional: Clear existing rows
-                    dataGridView1.Rows.Clear();
-
-                    foreach (var patient in patients)
-                    {
-                        dataGridView1.Rows.Add(new object[]
-                        {
-                            patient.PatientID,
-                            patient.Name,
-                            patient.Age,
-                            patient.VisitType,
-                            patient.MedicalHistory,
-                            patient.Phone,
-                            "Waiting"
-                        });
-                    }
-
-                    totalAppointments = patients.Count;
-                    pendingAppointments = patients.Count;
-                    withDoctor = 0; 
-                }*/
+            totalAppointments = patients.Count;
+            pendingAppointments = patients.Count(p => p.Status == "Waiting");
+            withDoctor = patients.Count(p => p.Status == "With Doctor");
+        }
 
         private void AddPatientToGrid(Patient patient)
         {
+            // Check if patient already exists by Name and Phone
+            bool exists = dataGridView1.Rows
+                .Cast<DataGridViewRow>()
+                .Any(r => r.Cells[1].Value?.ToString() == patient.Name &&
+                          r.Cells[5].Value?.ToString() == patient.Phone && r.Cells[6].Value?.ToString() != "Completed");
+
+            if (exists)
+            {
+                MessageBox.Show("Patient already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Add to grid
             dataGridView1.Rows.Add(new object[]
             {
         patient.PatientID,
@@ -64,7 +77,7 @@ namespace Clinic
         patient.VisitType,
         patient.MedicalHistory,
         patient.Phone,
-        "Waiting"
+        patient.Status
             });
 
             totalAppointments++;
@@ -91,26 +104,6 @@ namespace Clinic
                 AddPatientToGrid(form.SelectedPatient);
             }
         }
-        private void AddNewAppointment()
-        {
-            int newId = dataGridView1.Rows.Count + 1;
-
-            dataGridView1.Rows.Add(new object[]
-            {
-                newId,   // #
-                "",      // Name
-                "",      // Age
-                "",      // Visit Type
-                "",      // Medical History
-                "",      // Phone number
-                "Waiting"// Status
-            });
-
-            totalAppointments++;
-            pendingAppointments++;
-
-            UpdateLabels();
-        }
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -122,12 +115,16 @@ namespace Clinic
             if (currentStatus == "Waiting")
             {
                 cell.Value = "With Doctor";
+                context.Patients.Find(dataGridView1.Rows[e.RowIndex].Cells[0].Value).Status = "With Doctor";
+                context.SaveChanges();
                 pendingAppointments = Math.Max(0, pendingAppointments - 1);
                 withDoctor++;
             }
             else if (currentStatus == "With Doctor")
             {
                 cell.Value = "Completed";
+                context.Patients.Find(dataGridView1.Rows[e.RowIndex].Cells[0].Value).Status = "Completed";
+                context.SaveChanges();
                 withDoctor = Math.Max(0, withDoctor - 1);
             }
 

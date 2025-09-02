@@ -62,9 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202509021418460_migra.cs" />
-    <Compile Include="Migrations\202509021418460_migra.Designer.cs">
-      <DependentUpon>202509021418460_migra.cs</DependentUpon>
+    <Compile Include="Migrations\202509021527476_InitialCreate.cs" />
+    <Compile Include="Migrations\202509021527476_InitialCreate.Designer.cs">
+      <DependentUpon>202509021527476_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PatientForm.cs">
@@ -105,8 +105,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Migrations\202509021418460_migra.resx">
-      <DependentUpon>202509021418460_migra.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202509021527476_InitialCreate.resx">
+      <DependentUpon>202509021527476_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PatientForm.resx">
       <DependentUpon>PatientForm.cs</DependentUpon>

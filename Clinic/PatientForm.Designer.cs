@@ -47,7 +47,7 @@
             this.ErrorLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.ErrorLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.PatientGender = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.ExistingPhone = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.ExistingPhone = new Guna.UI2.WinForms.Guna2TextBox();
             this.SuspendLayout();
             // 
             // ExistingPatient
@@ -227,7 +227,7 @@
             this.ExistingVisitType.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.ExistingVisitType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.ExistingVisitType.ItemHeight = 30;
-            this.ExistingVisitType.Location = new System.Drawing.Point(162, 185);
+            this.ExistingVisitType.Location = new System.Drawing.Point(162, 227);
             this.ExistingVisitType.Name = "ExistingVisitType";
             this.ExistingVisitType.Size = new System.Drawing.Size(233, 36);
             this.ExistingVisitType.TabIndex = 10;
@@ -354,17 +354,20 @@
             // 
             // ExistingPhone
             // 
-            this.ExistingPhone.BackColor = System.Drawing.Color.Transparent;
             this.ExistingPhone.BorderRadius = 17;
-            this.ExistingPhone.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.ExistingPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ExistingPhone.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ExistingPhone.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ExistingPhone.DefaultText = "";
+            this.ExistingPhone.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.ExistingPhone.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.ExistingPhone.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.ExistingPhone.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.ExistingPhone.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.ExistingPhone.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ExistingPhone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.ExistingPhone.ItemHeight = 30;
-            this.ExistingPhone.Location = new System.Drawing.Point(162, 227);
+            this.ExistingPhone.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ExistingPhone.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ExistingPhone.Location = new System.Drawing.Point(162, 185);
             this.ExistingPhone.Name = "ExistingPhone";
+            this.ExistingPhone.PlaceholderText = "Phone no.";
+            this.ExistingPhone.SelectedText = "";
             this.ExistingPhone.Size = new System.Drawing.Size(233, 36);
             this.ExistingPhone.TabIndex = 20;
             this.ExistingPhone.Visible = false;
@@ -425,6 +428,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel ErrorLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel ErrorLabel6;
         private Guna.UI2.WinForms.Guna2ComboBox PatientGender;
-        private Guna.UI2.WinForms.Guna2ComboBox ExistingPhone;
+        private Guna.UI2.WinForms.Guna2TextBox ExistingPhone;
     }
 }
