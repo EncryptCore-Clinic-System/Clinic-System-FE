@@ -1,5 +1,6 @@
 ﻿using Clinic.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -161,56 +162,96 @@ namespace Clinic
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e) { }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
 
+        private List<Patient> originalPatients;
+
+        // في الـ Form Load أو Constructor
+        private void LoadOriginalData()
+        {
+            originalPatients = context.Patients.ToList();
+            dataGridView1.DataSource = originalPatients;
+        }
+
         private void Search_TextChanged(object sender, EventArgs e)
         {
-
-            var searchText = Search.Text.Trim();
-
-                var results = context.Patients
-                    .Where(p => p.Name.Contains(searchText) ||
-                                p.PatientID.ToString().Contains(searchText))
-                    .ToList();
-
-                dataGridView1.DataSource = results; // عرض النتائج
-            
+            PerformSearch();
         }
+
+        private void Search_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PerformSearch(showMessage: true);
+            }
+        }
+
+        private void PerformSearch(bool showMessage = false)
+        {
+            string searchText = Search.Text.Trim();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                // إرجاع البيانات الأصلية لما مفيش نص للبحث
+                ShowResults(originalPatients, showMessage: false);
+                return;
+            }
+
+            // تنفيذ البحث
+            var results = context.Patients
+                .Where(p => p.Name.ToLower().Contains(searchText.ToLower()) ||
+                            p.PatientID.ToString().Contains(searchText))
+                .ToList();
+
+            ShowResults(results, showMessage);
+        }
+
+        private void ShowResults(List<Patient> results, bool showMessage)
+        {
+            if (results != null && results.Count > 0)
+            {
+                // فيه نتائج - اعرضها
+                dataGridView1.DataSource = null; // مسح الـ binding الأول
+                dataGridView1.DataSource = results;
+                dataGridView1.Visible = true; // تأكد إن الجدول ظاهر
+
+                if (showMessage)
+                {
+                    MessageBox.Show($"Found {results.Count} patient(s) ✅", "Search Result",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                // مفيش نتائج - اخفي الجدول تماماً
+                dataGridView1.DataSource = null;
+                dataGridView1.Rows.Clear();
+                if (dataGridView1.Columns.Count > 0)
+                {
+                    dataGridView1.Columns.Clear();
+                }
+                dataGridView1.Visible = false;
+
+                if (showMessage)
+                {
+                    MessageBox.Show("Patient not found ❌", "Search Result",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        // إضافة method لإعادة تعيين الـ columns لما ترجع تعرض البيانات
+        private void ResetDataGridView()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.AutoGenerateColumns = true;
+        }
+
 
         private void ReceptionistDashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(0);
         }
-
-        private void Search_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) 
-            {
-                string searchText = Search.Text.Trim();
-
-                if (!string.IsNullOrEmpty(searchText))
-                {
-                    var results = context.Patients
-                        .Where(p => p.Name.Contains(searchText) ||
-                                    p.PatientID.ToString().Contains(searchText))
-                        .ToList();
-
-                    if (results.Count > 0)
-                    {
-                        dataGridView1.DataSource = results;
-                        MessageBox.Show("Patient found ✅", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        dataGridView1.DataSource = null;
-                        MessageBox.Show("Patient not found ❌", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                else
-                {
-                    dataGridView1.DataSource = null;
-                }
-            }
-        }
-
         private void pictureBox3_Click(object sender, EventArgs e)
         {
 
@@ -306,9 +347,30 @@ namespace Clinic
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            var signinPage = new LoginPage();
-            signinPage.Show();
-            this.Hide();
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to log out?",
+                "Confirmation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                var signinPage = new LoginPage();
+                signinPage.Show();
+                this.Hide();
+            }
+            else
+            {
+                // لو المستخدم اختار No → مفيش حاجة هتحصل
+                // هيفضل في نفس الصفحة زي ما هو
+            }
+        }
+
+        private void Reports_Click(object sender, EventArgs e)
+        {
+            var reports = new ReportsUC();
+            addUserControl(reports);
         }
     }
 }

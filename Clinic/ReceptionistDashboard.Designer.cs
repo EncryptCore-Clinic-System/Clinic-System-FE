@@ -63,6 +63,7 @@
             this.Dashboard = new Guna.UI2.WinForms.Guna2Button();
             this.Reports = new Guna.UI2.WinForms.Guna2Button();
             this.Logout = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelNavBar.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -87,6 +88,7 @@
             // panelNavBar
             // 
             this.panelNavBar.BackColor = System.Drawing.Color.Teal;
+            this.panelNavBar.Controls.Add(this.label1);
             this.panelNavBar.Controls.Add(this.Logout);
             this.panelNavBar.Controls.Add(this.Reports);
             this.panelNavBar.Controls.Add(this.Dashboard);
@@ -94,7 +96,7 @@
             this.panelNavBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNavBar.Location = new System.Drawing.Point(0, 0);
             this.panelNavBar.Name = "panelNavBar";
-            this.panelNavBar.Size = new System.Drawing.Size(2217, 90);
+            this.panelNavBar.Size = new System.Drawing.Size(2217, 98);
             this.panelNavBar.TabIndex = 16;
             this.panelNavBar.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
@@ -104,11 +106,11 @@
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Teal;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.ForeColor = System.Drawing.SystemColors.Control;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(116, 12);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(45, 17);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(262, 62);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(247, 67);
             this.guna2HtmlLabel1.TabIndex = 3;
-            this.guna2HtmlLabel1.Text = "Welcome";
+            this.guna2HtmlLabel1.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
             // 
             // mainPanel
             // 
@@ -123,9 +125,9 @@
             this.mainPanel.Controls.Add(this.groupBox1);
             this.mainPanel.Controls.Add(this.button1);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 90);
+            this.mainPanel.Location = new System.Drawing.Point(0, 98);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(2217, 1147);
+            this.mainPanel.Size = new System.Drawing.Size(2217, 1139);
             this.mainPanel.TabIndex = 17;
             // 
             // Search
@@ -456,9 +458,10 @@
             this.Reports.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Reports.Location = new System.Drawing.Point(1253, 17);
             this.Reports.Name = "Reports";
-            this.Reports.Size = new System.Drawing.Size(251, 62);
+            this.Reports.Size = new System.Drawing.Size(251, 67);
             this.Reports.TabIndex = 6;
             this.Reports.Text = "Reports";
+            this.Reports.Click += new System.EventHandler(this.Reports_Click);
             // 
             // Logout
             // 
@@ -477,6 +480,17 @@
             this.Logout.Text = "Log Out";
             this.Logout.Click += new System.EventHandler(this.guna2Button2_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(117, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(237, 65);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Welcome";
+            // 
             // ReceptionistDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -493,6 +507,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReceptionistDashboard_FormClosing);
             this.Load += new System.EventHandler(this.ReceptionistDashboard_Load);
             this.panelNavBar.ResumeLayout(false);
+            this.panelNavBar.PerformLayout();
             this.mainPanel.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -546,6 +561,7 @@
         private Guna.UI2.WinForms.Guna2Button Dashboard;
         private Guna.UI2.WinForms.Guna2Button Logout;
         private Guna.UI2.WinForms.Guna2Button Reports;
+        private System.Windows.Forms.Label label1;
     }
 }
 
