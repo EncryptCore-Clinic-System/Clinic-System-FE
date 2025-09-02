@@ -354,5 +354,9 @@ namespace Clinic
             Environment.Exit(0);
         }
 
+        private void guna2ComboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

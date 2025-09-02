@@ -31,8 +31,8 @@ namespace Clinic
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.errorpass = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.errorname = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.SignUp = new System.Windows.Forms.Label();
             this.DontHave = new System.Windows.Forms.Label();
             this.Password = new Guna.UI2.WinForms.Guna2TextBox();
@@ -45,8 +45,8 @@ namespace Clinic
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightBlue;
-            this.panel1.Controls.Add(this.guna2HtmlLabel2);
-            this.panel1.Controls.Add(this.guna2HtmlLabel1);
+            this.panel1.Controls.Add(this.errorpass);
+            this.panel1.Controls.Add(this.errorname);
             this.panel1.Controls.Add(this.SignUp);
             this.panel1.Controls.Add(this.DontHave);
             this.panel1.Controls.Add(this.Password);
@@ -55,43 +55,44 @@ namespace Clinic
             this.panel1.Controls.Add(this.Signin);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1283, 692);
+            this.panel1.Size = new System.Drawing.Size(1924, 1011);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // guna2HtmlLabel2
+            // errorpass
             // 
-            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Red;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(751, 536);
-            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(85, 15);
-            this.guna2HtmlLabel2.TabIndex = 10;
-            this.guna2HtmlLabel2.Text = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Visible = false;
+            this.errorpass.BackColor = System.Drawing.Color.Transparent;
+            this.errorpass.ForeColor = System.Drawing.Color.Red;
+            this.errorpass.Location = new System.Drawing.Point(1126, 783);
+            this.errorpass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.errorpass.Name = "errorpass";
+            this.errorpass.Size = new System.Drawing.Size(127, 21);
+            this.errorpass.TabIndex = 10;
+            this.errorpass.Text = "guna2HtmlLabel2";
+            this.errorpass.Visible = false;
             // 
-            // guna2HtmlLabel1
+            // errorname
             // 
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.Red;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(751, 454);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(85, 15);
-            this.guna2HtmlLabel1.TabIndex = 9;
-            this.guna2HtmlLabel1.Text = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Visible = false;
+            this.errorname.BackColor = System.Drawing.Color.Transparent;
+            this.errorname.ForeColor = System.Drawing.Color.Red;
+            this.errorname.Location = new System.Drawing.Point(1126, 664);
+            this.errorname.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.errorname.Name = "errorname";
+            this.errorname.Size = new System.Drawing.Size(127, 21);
+            this.errorname.TabIndex = 9;
+            this.errorname.Text = "guna2HtmlLabel1";
+            this.errorname.Visible = false;
+            this.errorname.Click += new System.EventHandler(this.guna2HtmlLabel1_Click);
             // 
             // SignUp
             // 
             this.SignUp.AutoSize = true;
             this.SignUp.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUp.ForeColor = System.Drawing.Color.DarkCyan;
-            this.SignUp.Location = new System.Drawing.Point(944, 627);
-            this.SignUp.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.SignUp.Location = new System.Drawing.Point(1416, 916);
             this.SignUp.Name = "SignUp";
-            this.SignUp.Size = new System.Drawing.Size(56, 17);
+            this.SignUp.Size = new System.Drawing.Size(85, 28);
             this.SignUp.TabIndex = 8;
             this.SignUp.Text = "Sign Up";
             this.SignUp.Click += new System.EventHandler(this.SignUp_Click);
@@ -102,10 +103,9 @@ namespace Clinic
             // 
             this.DontHave.AutoSize = true;
             this.DontHave.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DontHave.Location = new System.Drawing.Point(769, 627);
-            this.DontHave.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.DontHave.Location = new System.Drawing.Point(1154, 916);
             this.DontHave.Name = "DontHave";
-            this.DontHave.Size = new System.Drawing.Size(175, 63);
+            this.DontHave.Size = new System.Drawing.Size(273, 96);
             this.DontHave.TabIndex = 7;
             this.DontHave.Text = "Don\'t have an account? \r\n\r\n\r\n";
             this.DontHave.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -122,14 +122,14 @@ namespace Clinic
             this.Password.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.Password.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Password.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Password.Location = new System.Drawing.Point(732, 480);
-            this.Password.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Password.Location = new System.Drawing.Point(1098, 702);
+            this.Password.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Password.Name = "Password";
             this.Password.PasswordChar = '*';
             this.Password.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.Password.PlaceholderText = "   Password";
             this.Password.SelectedText = "";
-            this.Password.Size = new System.Drawing.Size(295, 48);
+            this.Password.Size = new System.Drawing.Size(442, 70);
             this.Password.TabIndex = 6;
             this.Password.TextChanged += new System.EventHandler(this.guna2TextBox2_TextChanged);
             // 
@@ -145,13 +145,13 @@ namespace Clinic
             this.UserName.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.UserName.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.UserName.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.UserName.Location = new System.Drawing.Point(732, 399);
-            this.UserName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.UserName.Location = new System.Drawing.Point(1098, 583);
+            this.UserName.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.UserName.Name = "UserName";
             this.UserName.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.UserName.PlaceholderText = "   Enter User Name";
             this.UserName.SelectedText = "";
-            this.UserName.Size = new System.Drawing.Size(295, 48);
+            this.UserName.Size = new System.Drawing.Size(442, 70);
             this.UserName.TabIndex = 5;
             this.UserName.TextChanged += new System.EventHandler(this.UserName_TextChanged);
             // 
@@ -165,11 +165,10 @@ namespace Clinic
             this.Login.FillColor = System.Drawing.Color.Teal;
             this.Login.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Login.ForeColor = System.Drawing.Color.White;
-            this.Login.Location = new System.Drawing.Point(732, 560);
-            this.Login.Margin = new System.Windows.Forms.Padding(2);
+            this.Login.Location = new System.Drawing.Point(1098, 818);
             this.Login.Name = "Login";
             this.Login.PressedDepth = 50;
-            this.Login.Size = new System.Drawing.Size(295, 51);
+            this.Login.Size = new System.Drawing.Size(442, 75);
             this.Login.TabIndex = 4;
             this.Login.Text = "Log in";
             this.Login.Click += new System.EventHandler(this.guna2Button1_Click);
@@ -179,21 +178,19 @@ namespace Clinic
             this.Signin.AutoSize = true;
             this.Signin.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Signin.ForeColor = System.Drawing.Color.Teal;
-            this.Signin.Location = new System.Drawing.Point(791, 263);
-            this.Signin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Signin.Location = new System.Drawing.Point(1186, 384);
             this.Signin.Name = "Signin";
-            this.Signin.Size = new System.Drawing.Size(185, 65);
+            this.Signin.Size = new System.Drawing.Size(276, 96);
             this.Signin.TabIndex = 1;
             this.Signin.Text = "Sign In";
             this.Signin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1283, 692);
+            this.ClientSize = new System.Drawing.Size(1924, 1011);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LoginPage";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Log In";
@@ -214,8 +211,8 @@ namespace Clinic
         private Guna.UI2.WinForms.Guna2TextBox UserName;
         private System.Windows.Forms.Label DontHave;
         private System.Windows.Forms.Label SignUp;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2HtmlLabel errorpass;
+        private Guna.UI2.WinForms.Guna2HtmlLabel errorname;
     }
 }
 

@@ -7,17 +7,15 @@ namespace Clinic
 {
     public partial class ReceptionistDashboard : Form
     {
+        MyContext context = new MyContext();
         // counters
         int totalAppointments = 0;
         int pendingAppointments = 0;
         int withDoctor = 0;
 
-        MyContext db = new MyContext();
-
         public ReceptionistDashboard()
         {
             InitializeComponent();
-            
         }
 
         private void ReceptionistDashboard_Load(object sender, EventArgs e)
@@ -25,53 +23,20 @@ namespace Clinic
             // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
 
-
-            LoadPatients();
             // initialize counters
             UpdateLabels();
-        }
-
-
-        private void LoadPatients()
-        {
-            var patients = db.Patients.ToList();
-
-            // Optional: Clear existing rows
-            dataGridView1.Rows.Clear();
-
-            foreach (var patient in patients)
-            {
-                dataGridView1.Rows.Add(new object[]
-                {
-                    patient.PatientID,
-                    patient.Name,
-                    patient.Age,
-                    patient.VisitType,
-                    patient.MedicalHistory,
-                    patient.Phone,
-                    "Waiting" 
-                });
-            }
-
-            totalAppointments = patients.Count;
-            pendingAppointments = patients.Count; // Adjust if you have status
-            withDoctor = 0; // Adjust if you have status
         }
 
         // Add button (green button)
         private void button1_Click(object sender, EventArgs e)
         {
-            var form = new PatientForm();
-            form.ShowDialog();
-            //AddNewAppointment();
+            AddNewAppointment();
         }
 
         // Add picture (green picture)
         private void pictureBox4_Click(object sender, EventArgs e)
         {
-            var form = new PatientForm();
-            form.ShowDialog();
-            //AddNewAppointment();
+            AddNewAppointment();
         }
 
         private void AddNewAppointment()
@@ -139,5 +104,110 @@ namespace Clinic
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e) { }
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e) { }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+
+        private void Search_TextChanged(object sender, EventArgs e)
+        {
+
+            var searchText = Search.Text.Trim();
+
+                var results = context.Patients
+                    .Where(p => p.Name.Contains(searchText) ||
+                                p.PatientID.ToString().Contains(searchText))
+                    .ToList();
+
+                dataGridView1.DataSource = results; // عرض النتائج
+            
+        }
+
+        private void ReceptionistDashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void Search_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) // لما المستخدم يدوس Enter
+            {
+                string searchText = Search.Text.Trim();
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    var results = context.Patients
+                        .Where(p => p.Name.Contains(searchText) ||
+                                    p.PatientID.ToString().Contains(searchText))
+                        .ToList();
+
+                    if (results.Count > 0)
+                    {
+                        dataGridView1.DataSource = results;
+                        MessageBox.Show("Patient found ✅", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        dataGridView1.DataSource = null;
+                        MessageBox.Show("Patient not found ❌", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    dataGridView1.DataSource = null;
+                }
+            }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblWithDoctor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox4_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTotal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace Clinic
             int spacing = 15;
 
             // إجمالي الارتفاع اللي هنحتاجه (من غير SignUp و DontHave لأنهم جنب بعض)
-            int totalHeight = Signin.Height + UserName.Height + Password.Height + Login.Height
+            int totalHeight = Signin.Height + UserName.Height + Password.Height + Login.Height + errorname.Height + errorpass.Height
                               + Math.Max(SignUp.Height, DontHave.Height) // صف واحد
                               + (spacing * 4);
 
@@ -74,13 +74,13 @@ namespace Clinic
             CenterControl(UserName, ref startY, spacing);
 
             // Set error label width to match textbox width before centering
-            guna2HtmlLabel1.Width = UserName.Width;
-            CenterControl(guna2HtmlLabel1, ref startY, 3);
+            errorname.Width = UserName.Width;
+            CenterControl(errorname, ref startY, 3);
 
             CenterControl(Password, ref startY, spacing);
 
-            guna2HtmlLabel2.Width = Password.Width;
-            CenterControl(guna2HtmlLabel2, ref startY, 3);
+            errorpass.Width = Password.Width;
+            CenterControl(errorpass, ref startY, 3);
 
             CenterControl(Login, ref startY, spacing);
 
@@ -219,34 +219,39 @@ namespace Clinic
 
         private bool ValidateAllFields()
         {
-            bool valid1 = ValidateField(UserName, guna2HtmlLabel1, "Username");
-            bool valid2 = ValidateField(Password, guna2HtmlLabel2, "Password");
+            bool valid1 = ValidateField(UserName, errorname, "Username");
+            bool valid2 = ValidateField(Password, errorpass, "Password");
             return valid1 && valid2;
         }
 
         private void Password_TextChanged(object sender, EventArgs e)
         {
-            ValidateField(Password, guna2HtmlLabel2, "Password");
+            ValidateField(Password, errorpass, "Password");
 
         }
 
         private void UserName_TextChanged(object sender, EventArgs e)
         {
-            ValidateField(UserName, guna2HtmlLabel1, "Username");
+            ValidateField(UserName, errorname, "Username");
         }
 
         private void Password_Leave(object sender, EventArgs e)
         {
-            ValidateField(Password, guna2HtmlLabel2, "Password");
+            ValidateField(Password, errorpass, "Password");
         }
 
         private void UserName_Leave(object sender, EventArgs e)
         {
-            ValidateField(UserName, guna2HtmlLabel1, "Username");
+            ValidateField(UserName, errorname, "Username");
         }
 
         private void guna2TextBox2_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        private void guna2HtmlLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
