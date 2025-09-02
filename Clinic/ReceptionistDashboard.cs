@@ -182,7 +182,7 @@ namespace Clinic
 
         private void Search_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) // لما المستخدم يدوس Enter
+            if (e.KeyCode == Keys.Enter) 
             {
                 string searchText = Search.Text.Trim();
 
@@ -264,6 +264,51 @@ namespace Clinic
         private void lblTotal_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void guna2HtmlLabel2_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void guna2HtmlLabel2_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Search_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void addUserControl(UserControl userControl)
+        {
+            userControl.Dock = DockStyle.Fill;
+            mainPanel.Controls.Clear();     
+            mainPanel.Controls.Add(userControl);
+            userControl.BringToFront();
+        }
+        private void Dashboard_Click(object sender, EventArgs e)
+        {
+            var dashboard = new DashboardUC(); 
+            addUserControl(dashboard);
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            var signinPage = new LoginPage();
+            signinPage.Show();
+            this.Hide();
         }
     }
 }

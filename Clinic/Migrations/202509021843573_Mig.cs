@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class migra : DbMigration
+    public partial class Mig : DbMigration
     {
         public override void Up()
         {
@@ -43,6 +43,7 @@
                         Address = c.String(maxLength: 255),
                         MedicalHistory = c.String(),
                         CreatedAt = c.DateTime(nullable: false),
+                        Status = c.String(),
                         Appointment_AppointmentID = c.Int(),
                         Report_ReportID = c.Int(),
                     })

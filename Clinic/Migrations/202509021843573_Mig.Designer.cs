@@ -7,13 +7,13 @@ namespace Clinic.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class Mig : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Mig));
         
         string IMigrationMetadata.Id
         {
-            get { return "202509021527476_InitialCreate"; }
+            get { return "202509021843573_Mig"; }
         }
         
         string IMigrationMetadata.Source

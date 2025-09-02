@@ -62,9 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202509021527476_InitialCreate.cs" />
-    <Compile Include="Migrations\202509021527476_InitialCreate.Designer.cs">
-      <DependentUpon>202509021527476_InitialCreate.cs</DependentUpon>
+    <Compile Include="UserControl\DashboardUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\DashboardUC.Designer.cs">
+      <DependentUpon>DashboardUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202509021843573_Mig.cs" />
+    <Compile Include="Migrations\202509021843573_Mig.Designer.cs">
+      <DependentUpon>202509021843573_Mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PatientForm.cs">
@@ -105,8 +111,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Migrations\202509021527476_InitialCreate.resx">
-      <DependentUpon>202509021527476_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="UserControl\DashboardUC.resx">
+      <DependentUpon>DashboardUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202509021843573_Mig.resx">
+      <DependentUpon>202509021843573_Mig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PatientForm.resx">
       <DependentUpon>PatientForm.cs</DependentUpon>
