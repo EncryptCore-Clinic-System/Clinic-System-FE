@@ -178,54 +178,94 @@ namespace Clinic
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e) { }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
 
+        private List<Patient> originalPatients;
+
+        
+        private void LoadOriginalData()
+        {
+            originalPatients = context.Patients.ToList();
+            dataGridView1.DataSource = originalPatients;
+        }
+
         private void Search_TextChanged(object sender, EventArgs e)
         {
+            PerformSearch();
+        }
 
-            var searchText = Search.Text.Trim();
+        private void Search_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PerformSearch(showMessage: true);
+            }
+        }
 
+        private void PerformSearch(bool showMessage = false)
+        {
+            string searchText = Search.Text.Trim();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                
+                ShowResults(originalPatients, showMessage: false);
+                return;
+            }
+
+            
             var results = context.Patients
-                .Where(p => p.Name.Contains(searchText) ||
+                .Where(p => p.Name.ToLower().Contains(searchText.ToLower()) ||
                             p.PatientID.ToString().Contains(searchText))
                 .ToList();
 
-            dataGridView1.DataSource = results; // عرض النتائج
+            ShowResults(results, showMessage);
+        }
 
+        private void ShowResults(List<Patient> results, bool showMessage)
+        {
+            if (results != null && results.Count > 0)
+            {
+                
+                dataGridView1.DataSource = null; // مسح الـ binding الأول
+                dataGridView1.DataSource = results;
+                dataGridView1.Visible = true; // تأكد إن الجدول ظاهر
+
+                if (showMessage)
+                {
+                    MessageBox.Show($"Found {results.Count} patient(s) ✅", "Search Result",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                
+                dataGridView1.DataSource = null;
+                dataGridView1.Rows.Clear();
+                if (dataGridView1.Columns.Count > 0)
+                {
+                    dataGridView1.Columns.Clear();
+                }
+                dataGridView1.Visible = false;
+
+                if (showMessage)
+                {
+                    MessageBox.Show("Patient not found ❌", "Search Result",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        // إضافة method لإعادة تعيين الـ columns لما ترجع تعرض البيانات
+        private void ResetDataGridView()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.AutoGenerateColumns = true;
         }
 
         private void ReceptionistDashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(0);
-        }
-
-        private void Search_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) // لما المستخدم يدوس Enter
-            {
-                string searchText = Search.Text.Trim();
-
-                if (!string.IsNullOrEmpty(searchText))
-                {
-                    var results = context.Patients
-                        .Where(p => p.Name.Contains(searchText) ||
-                                    p.PatientID.ToString().Contains(searchText))
-                        .ToList();
-
-                    if (results.Count > 0)
-                    {
-                        dataGridView1.DataSource = results;
-                        MessageBox.Show("Patient found ✅", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        dataGridView1.DataSource = null;
-                        MessageBox.Show("Patient not found ❌", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                else
-                {
-                    dataGridView1.DataSource = null;
-                }
-            }
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
