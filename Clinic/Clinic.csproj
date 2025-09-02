@@ -85,6 +85,12 @@
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="PatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PatientForm.Designer.cs">
+      <DependentUpon>PatientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReceptionistDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="migrations\202509011515356_migra.resx">
       <DependentUpon>202509011515356_migra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PatientForm.resx">
+      <DependentUpon>PatientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReceptionistDashboard.resx">
       <DependentUpon>ReceptionistDashboard.cs</DependentUpon>

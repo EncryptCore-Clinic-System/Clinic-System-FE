@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Clinic.Models;
+using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Clinic
@@ -10,9 +12,12 @@ namespace Clinic
         int pendingAppointments = 0;
         int withDoctor = 0;
 
+        MyContext db = new MyContext();
+
         public ReceptionistDashboard()
         {
             InitializeComponent();
+            
         }
 
         private void ReceptionistDashboard_Load(object sender, EventArgs e)
@@ -20,20 +25,53 @@ namespace Clinic
             // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
 
+
+            LoadPatients();
             // initialize counters
             UpdateLabels();
+        }
+
+
+        private void LoadPatients()
+        {
+            var patients = db.Patients.ToList();
+
+            // Optional: Clear existing rows
+            dataGridView1.Rows.Clear();
+
+            foreach (var patient in patients)
+            {
+                dataGridView1.Rows.Add(new object[]
+                {
+                    patient.PatientID,
+                    patient.Name,
+                    patient.Age,
+                    patient.VisitType,
+                    patient.MedicalHistory,
+                    patient.Phone,
+                    "Waiting" 
+                });
+            }
+
+            totalAppointments = patients.Count;
+            pendingAppointments = patients.Count; // Adjust if you have status
+            withDoctor = 0; // Adjust if you have status
         }
 
         // Add button (green button)
         private void button1_Click(object sender, EventArgs e)
         {
-            AddNewAppointment();
+            var form = new PatientForm();
+            form.ShowDialog();
+            //AddNewAppointment();
         }
 
         // Add picture (green picture)
         private void pictureBox4_Click(object sender, EventArgs e)
         {
-            AddNewAppointment();
+            var form = new PatientForm();
+            form.ShowDialog();
+            //AddNewAppointment();
         }
 
         private void AddNewAppointment()
