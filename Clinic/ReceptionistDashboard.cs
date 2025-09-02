@@ -300,7 +300,7 @@ namespace Clinic
         }
         private void Dashboard_Click(object sender, EventArgs e)
         {
-            var dashboard = new DashboardUC(); 
+            var dashboard = new DashboardUC(loggedInUser); 
             addUserControl(dashboard);
         }
 

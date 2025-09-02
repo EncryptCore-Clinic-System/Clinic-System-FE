@@ -20,14 +20,11 @@ namespace Clinic
         int pendingAppointments = 0;
         int withDoctor = 0;
 
-        public DashboardUC()
+        public DashboardUC(User user)
         {
             InitializeComponent();
-        }
+            loggedInUser = user;
 
-        private void ReceptionistDashboard_Load(object sender, EventArgs e)
-        {
-            // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
 
 
@@ -37,6 +34,20 @@ namespace Clinic
             LoadPatients();
             // initialize counters
             UpdateLabels();
+        }
+
+        private void ReceptionistDashboard_Load(object sender, EventArgs e)
+        {
+            //// Prevent placeholder new row
+            //dataGridView1.AllowUserToAddRows = false;
+
+
+            //button1.Visible = loggedInUser.Role == "Receptionist";
+            //pictureBox5.Visible = loggedInUser.Role == "Receptionist";
+
+            //LoadPatients();
+            //// initialize counters
+            //UpdateLabels();
         }
 
         private void LoadPatients()
@@ -59,6 +70,7 @@ namespace Clinic
                     patient.Status
                 });
             }
+            //MessageBox.Show("Patients loaded successfully.", "Load Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             totalAppointments = patients.Count;
             pendingAppointments = patients.Count(p => p.Status == "Waiting");
