@@ -134,18 +134,10 @@ namespace Clinic
             {
                 // Successful login
                 MessageBox.Show("Login successful!");
-                //Open the main application form
-
-                if (user.Role == "Receptionist")
-                {
-                    var receptionistDashboard = new ReceptionistDashboard();
-                    receptionistDashboard.Show();
-                    this.Hide();
-                }
-
-                //Patient patient = new Patient()
-                //patient.Show();
-                //this.Hide();
+                // Pass the user to the dashboard
+                var receptionistDashboard = new ReceptionistDashboard(user);
+                receptionistDashboard.Show();
+                this.Hide();
             }
             else
             {

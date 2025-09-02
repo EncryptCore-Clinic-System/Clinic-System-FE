@@ -7,21 +7,27 @@ namespace Clinic
 {
     public partial class ReceptionistDashboard : Form
     {
+        private User loggedInUser;
         MyContext context = new MyContext();
         // counters
         int totalAppointments = 0;
         int pendingAppointments = 0;
         int withDoctor = 0;
 
-        public ReceptionistDashboard()
+        public ReceptionistDashboard(User user)
         {
             InitializeComponent();
+            loggedInUser = user;
         }
 
         private void ReceptionistDashboard_Load(object sender, EventArgs e)
         {
             // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
+
+
+            button1.Visible = loggedInUser.Role == "Receptionist";
+            pictureBox5.Visible = loggedInUser.Role == "Receptionist";
 
             LoadPatients();
             // initialize counters
@@ -107,6 +113,7 @@ namespace Clinic
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
+            if (loggedInUser.Role != "Doctor") return;
             if (e.RowIndex < 0 || e.ColumnIndex != 6) return; // only Status column
 
             DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
