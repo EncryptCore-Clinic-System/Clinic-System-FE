@@ -1,6 +1,7 @@
 ﻿using Clinic.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -10,6 +11,9 @@ namespace Clinic
     {
         private User loggedInUser;
         MyContext context = new MyContext();
+        private Timer refreshTimer;
+        private string lastSnapshotHash = "";
+
         // counters
         int totalAppointments = 0;
         int pendingAppointments = 0;
@@ -26,35 +30,51 @@ namespace Clinic
             // Prevent placeholder new row
             dataGridView1.AllowUserToAddRows = false;
 
-
             button1.Visible = loggedInUser.Role == "Receptionist";
             pictureBox5.Visible = loggedInUser.Role == "Receptionist";
 
             LoadPatients();
+            refreshTimer = new Timer();
+            refreshTimer.Interval = 3000; // 3 seconds
+            refreshTimer.Tick += (s, ev) => RefreshPatients();
+            refreshTimer.Start();
+
             // initialize counters
+
             UpdateLabels();
         }
+
+        private void RefreshPatients()
+        {
+            try
+            {
+                context = new MyContext(); // recreate the context safely
+                context.Patients.Load();   // make sure EF pulls fresh data
+
+                var updatedPatients = context.Patients.ToList();
+
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = updatedPatients;
+
+                totalAppointments = updatedPatients.Count;
+                pendingAppointments = updatedPatients.Count(p => p.Status == "Waiting");
+                withDoctor = updatedPatients.Count(p => p.Status == "With Doctor");
+
+                UpdateLabels();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Refresh failed: {ex.Message}");
+            }
+        }
+
+
 
         private void LoadPatients()
         {
             var patients = context.Patients.ToList();
-
-            // Optional: Clear existing rows
-            dataGridView1.Rows.Clear();
-
-            foreach (var patient in patients)
-            {
-                dataGridView1.Rows.Add(new object[]
-                {
-                    patient.PatientID,
-                    patient.Name,
-                    patient.Age,
-                    patient.VisitType,
-                    patient.MedicalHistory,
-                    patient.Phone,
-                    patient.Status
-                });
-            }
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = patients;
 
             totalAppointments = patients.Count;
             pendingAppointments = patients.Count(p => p.Status == "Waiting");
@@ -64,31 +84,17 @@ namespace Clinic
         private void AddPatientToGrid(Patient patient)
         {
             // Check if patient already exists by Name and Phone
-            bool exists = dataGridView1.Rows
-                .Cast<DataGridViewRow>()
-                .Any(r => r.Cells[1].Value?.ToString() == patient.Name &&
-                          r.Cells[5].Value?.ToString() == patient.Phone && r.Cells[6].Value?.ToString() != "Completed");
-
+            bool exists = context.Patients.Any(p => p.Name == patient.Name && p.Phone == patient.Phone && p.Status != "Completed");
             if (exists)
             {
                 MessageBox.Show("Patient already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Add to grid
-            dataGridView1.Rows.Add(new object[]
-            {
-        patient.PatientID,
-        patient.Name,
-        patient.Age,
-        patient.VisitType,
-        patient.MedicalHistory,
-        patient.Phone,
-        patient.Status
-            });
+            context.Patients.Add(patient);
+            context.SaveChanges();
 
-            totalAppointments++;
-            pendingAppointments++;
+            LoadPatients(); // Refresh grid from DB
             UpdateLabels();
         }
 
@@ -115,30 +121,20 @@ namespace Clinic
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (loggedInUser.Role != "Doctor") return;
-            if (e.RowIndex < 0 || e.ColumnIndex != 6) return; // only Status column
+            if (e.RowIndex < 0) return;
 
-            DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            string currentStatus = cell.Value?.ToString() ?? "";
-
-            if (currentStatus == "Waiting")
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Status")
             {
-                cell.Value = "With Doctor";
-                context.Patients.Find(dataGridView1.Rows[e.RowIndex].Cells[0].Value).Status = "With Doctor";
-                context.SaveChanges();
-                pendingAppointments = Math.Max(0, pendingAppointments - 1);
-                withDoctor++;
-            }
-            else if (currentStatus == "With Doctor")
-            {
-                cell.Value = "Completed";
-                context.Patients.Find(dataGridView1.Rows[e.RowIndex].Cells[0].Value).Status = "Completed";
-                context.SaveChanges();
-                withDoctor = Math.Max(0, withDoctor - 1);
-            }
+                var patient = dataGridView1.Rows[e.RowIndex].DataBoundItem as Patient;
+                if (patient != null)
+                {
+                    patient.Status = patient.Status == "Waiting" ? "With Doctor" : "Completed";
+                    context.SaveChanges();
 
-            UpdateLabels();
+                    RefreshPatients();
+                }
+            }
         }
-
         private void UpdateLabels()
         {
             lblTotal.Text = totalAppointments.ToString();
@@ -191,10 +187,14 @@ namespace Clinic
             if (string.IsNullOrEmpty(searchText))
             {
                 // إرجاع البيانات الأصلية لما مفيش نص للبحث
-                ShowResults(originalPatients, showMessage: false);
+                LoadPatients();
+                refreshTimer.Tick += (s, ev) => RefreshPatients();
+                refreshTimer.Start();
                 return;
             }
 
+            if (refreshTimer != null)
+                refreshTimer.Stop();
             // تنفيذ البحث
             var results = context.Patients
                 .Where(p => p.Name.ToLower().Contains(searchText.ToLower()) ||
@@ -208,10 +208,9 @@ namespace Clinic
         {
             if (results != null && results.Count > 0)
             {
-                // فيه نتائج - اعرضها
-                dataGridView1.DataSource = null; // مسح الـ binding الأول
+                dataGridView1.DataSource = null;
                 dataGridView1.DataSource = results;
-                dataGridView1.Visible = true; // تأكد إن الجدول ظاهر
+                dataGridView1.Visible = true;
 
                 if (showMessage)
                 {
@@ -221,13 +220,7 @@ namespace Clinic
             }
             else
             {
-                // مفيش نتائج - اخفي الجدول تماماً
                 dataGridView1.DataSource = null;
-                dataGridView1.Rows.Clear();
-                if (dataGridView1.Columns.Count > 0)
-                {
-                    dataGridView1.Columns.Clear();
-                }
                 dataGridView1.Visible = false;
 
                 if (showMessage)
@@ -238,7 +231,6 @@ namespace Clinic
             }
         }
 
-        // إضافة method لإعادة تعيين الـ columns لما ترجع تعرض البيانات
         private void ResetDataGridView()
         {
             dataGridView1.DataSource = null;
@@ -247,9 +239,10 @@ namespace Clinic
             dataGridView1.AutoGenerateColumns = true;
         }
 
-
         private void ReceptionistDashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (refreshTimer != null)
+                refreshTimer.Stop();
             Environment.Exit(0);
         }
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -314,7 +307,7 @@ namespace Clinic
 
         private void guna2HtmlLabel2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Search_TextChanged_1(object sender, EventArgs e)
@@ -335,13 +328,13 @@ namespace Clinic
         private void addUserControl(UserControl userControl)
         {
             userControl.Dock = DockStyle.Fill;
-            mainPanel.Controls.Clear();     
+            mainPanel.Controls.Clear();
             mainPanel.Controls.Add(userControl);
             userControl.BringToFront();
         }
         private void Dashboard_Click(object sender, EventArgs e)
         {
-            var dashboard = new DashboardUC(loggedInUser); 
+            var dashboard = new DashboardUC(loggedInUser);
             addUserControl(dashboard);
         }
 
