@@ -84,12 +84,12 @@ namespace Clinic
         private void AddPatientToGrid(Patient patient)
         {
             // Check if patient already exists by Name and Phone
-            bool exists = context.Patients.Any(p => p.Name == patient.Name && p.Phone == patient.Phone && p.Status != "Completed");
-            if (exists)
-            {
-                MessageBox.Show("Patient already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //bool exists = context.Patients.Any(p => p.Name == patient.Name && p.Phone == patient.Phone && p.Status != "Completed");
+            //if (exists)
+            //{
+            //    MessageBox.Show("Patient already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
             context.Patients.Add(patient);
             context.SaveChanges();
